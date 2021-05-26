@@ -5,3 +5,9 @@ query get_characters {
     }
   }
 }
+
+query get_character($id: ID!) {
+  character(id: $id) {
+    name
+  }
+}
