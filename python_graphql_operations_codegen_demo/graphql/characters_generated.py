@@ -93,7 +93,11 @@ async def execute_async_get_characters_gql() -> GetCharactersResponse:
 _gql_get_character_gql = gql("""
 query get_character($id: ID!) {
   character(id: $id) {
-    name
+    status
+    gender
+    location {
+      name
+    }
   }
 }
 
@@ -106,7 +110,19 @@ class GetCharacterResponse:
   @dataclass
   class CharacterSelection:
   
-    name: str
+    status: str
+    
+    gender: str
+    
+    @dataclass
+    class LocationSelection:
+    
+      name: str
+      
+    
+    __GQL_CODEGEN_LocationSelection__ = LocationSelection
+    
+    location: LocationSelection
     
   
   __GQL_CODEGEN_CharacterSelection__ = CharacterSelection

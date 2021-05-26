@@ -6,8 +6,8 @@ async def start_async() -> None:
     print(res.characters.results[1].name)
 
 def start_sync() -> None:
-    res = execute_get_character_gql(id="6")
-    print(res.character.name)
+    res = execute_get_character_gql(id="4")
+    print(res.character.location.name)
 
 def start() -> None:
     start_sync()
