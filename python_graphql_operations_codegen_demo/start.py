@@ -1,15 +1,10 @@
-from .graphql.characters_generated import execute_async_get_characters_gql, execute_get_character_gql
 import asyncio
+from python_graphql_operations_codegen_demo.graphql.tests_generated import execute_query_with_optional_parameter_gql
 
 async def start_async() -> None:
-    res = await execute_async_get_characters_gql()
-    print(res.characters.results[1].name)
-
-def start_sync() -> None:
-    res = execute_get_character_gql(id="4")
-    print(res.character.location.name)
+    res = execute_query_with_optional_parameter_gql(name="sdf")
+    print(res.helloName)
 
 def start() -> None:
-    start_sync()
     loop = asyncio.get_event_loop()
     loop.run_until_complete(start_async())

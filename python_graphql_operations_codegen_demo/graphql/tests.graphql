@@ -1,0 +1,12 @@
+query simple_query {
+  hello
+}
+
+query query_with_parameter($name: String!) {
+  helloName(name: $name)
+}
+
+query query_with_optional_parameter($name: String = "UV") {
+  helloName(name: $name)
+}
+

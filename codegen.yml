@@ -1,4 +1,4 @@
-schema: https://rickandmortyapi.com/graphql
+schema: http://localhost:4000/graphql
 documents: "python_graphql_operations_codegen_demo/**/*.graphql"
 generates:
   ./python_graphql_operations_codegen_demo/graphql_generated/schema.graphql:
@@ -24,7 +24,7 @@ generates:
           content: "# flake8: noqa"
           placement: "prepend"
       - python-operations:
-          schema: "\"https://rickandmortyapi.com/graphql\""
-          schemaSubscriptions: "\"wss://rickandmortyapi.com/graphql\""
+          schema: "\"http://localhost:4000/graphql\""
+          schemaSubscriptions: "\"ws://localhost:4000/graphql\""
 config:
   skipDocumentsValidation: true
