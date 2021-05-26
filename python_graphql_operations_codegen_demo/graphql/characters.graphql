@@ -1,0 +1,7 @@
+query get_characters {
+  characters {
+    results {
+      name
+    }
+  }
+}

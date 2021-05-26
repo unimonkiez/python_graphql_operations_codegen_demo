@@ -1,0 +1,30 @@
+schema: https://rickandmortyapi.com/graphql
+documents: "python_graphql_operations_codegen_demo/**/*.graphql"
+generates:
+  ./python_graphql_operations_codegen_demo/graphql_generated/schema.graphql:
+    plugins:
+      - schema-ast
+    config:
+      skipDocumentValidation: true
+      includeDirectives: true
+  ./python_graphql_operations_codegen_demo/graphql_generated/types_generated.py:
+    plugins:
+      - add: "# flake8: noqa"
+      - python
+    config:
+      skipDocumentValidation: true
+      useIndexSignature: true
+  ./python_graphql_operations_codegen_demo/:
+    preset: near-operation-file
+    presetConfig:
+      baseTypesPath: ~python_graphql_operations_codegen_demo.graphql_generated.types_generated.py
+      extension: _generated.py
+    plugins:
+      - add:
+          content: "# flake8: noqa"
+          placement: "prepend"
+      - python-operations:
+          schema: "\"https://rickandmortyapi.com/graphql\""
+          schemaSubscriptions: "\"wss://rickandmortyapi.com/graphql\""
+config:
+  skipDocumentsValidation: true

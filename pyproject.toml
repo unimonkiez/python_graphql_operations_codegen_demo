@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "python_graphql_operations_codegen_demo"
+version = "0.1.0"
+description = ""
+authors = ["Yuval Saraf <unimonkiez@gmail.com>"]
+
+[tool.poetry.scripts]
+start = "python_graphql_operations_codegen_demo.start:start"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+gql = {version = "3.0.0a2", allow-prereleases = true}
+dacite = "^1.6.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
