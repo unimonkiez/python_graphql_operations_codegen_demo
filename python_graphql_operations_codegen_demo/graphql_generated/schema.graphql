@@ -1,5 +1,6 @@
 schema {
   query: Query
+  mutation: Mutation
 }
 
 union Data = FragA | FragB
@@ -14,10 +15,18 @@ type FragB {
   addedAlso: Int!
 }
 
+type Mutation {
+  test(data: testDataInput!): String!
+}
+
 type Query {
   hello: String
   helloName(name: String!): String!
   testFrag: testFragResult!
+}
+
+input testDataInput {
+  name: String!
 }
 
 type testFragResult {

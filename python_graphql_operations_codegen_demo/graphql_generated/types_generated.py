@@ -26,6 +26,18 @@ class FragB:
 
 __GQL_CODEGEN_FragB__ = FragB
 
+class Mutation:
+  __typename: Optional[Literal["Mutation"]]
+  test: ScalarString
+
+__GQL_CODEGEN_Mutation__ = Mutation
+
+
+class MutationTestArgs:
+  data: TestDataInput
+
+__GQL_CODEGEN_MutationTestArgs__ = MutationTestArgs
+
 class Query:
   __typename: Optional[Literal["Query"]]
   hello: Optional[ScalarString]
@@ -39,6 +51,12 @@ class QueryHelloNameArgs:
   name: ScalarString
 
 __GQL_CODEGEN_QueryHelloNameArgs__ = QueryHelloNameArgs
+
+@dataclass
+class TestDataInput:
+  name: ScalarString
+
+__GQL_CODEGEN_TestDataInput__ = TestDataInput
 
 class TestFragResult:
   __typename: Optional[Literal["testFragResult"]]

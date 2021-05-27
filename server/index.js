@@ -22,6 +22,13 @@ const { makeExecutableSchema } = require('@graphql-tools/schema');
    helloName(name: String!): String!
    testFrag: testFragResult!
  }
+ input testDataInput {
+  name: String!
+ }
+ type Mutation {
+   test(data: testDataInput!): String!
+ }
+
 `;
 
 const resolvers = {
@@ -51,6 +58,11 @@ const resolvers = {
             },
         };
     }, 
+  },
+  Mutation: {
+    test: (info, args) => {
+      return `Hello ${args.data.name}!`;
+    },
   },
   Data: {
     __resolveType(obj) {

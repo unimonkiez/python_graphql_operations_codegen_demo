@@ -1,5 +1,4 @@
 schema: http://localhost:4000/graphql
-documents: "python_graphql_operations_codegen_demo/**/*.graphql"
 generates:
   ./python_graphql_operations_codegen_demo/graphql_generated/schema.graphql:
     plugins:
@@ -14,17 +13,3 @@ generates:
     config:
       skipDocumentValidation: true
       useIndexSignature: true
-  ./python_graphql_operations_codegen_demo/:
-    preset: near-operation-file
-    presetConfig:
-      baseTypesPath: ~python_graphql_operations_codegen_demo.graphql_generated.types_generated.py
-      extension: _generated.py
-    plugins:
-      - add:
-          content: "# flake8: noqa"
-          placement: "prepend"
-      - python-operations:
-          schema: "\"http://localhost:4000/graphql\""
-          schemaSubscriptions: "\"ws://localhost:4000/graphql\""
-config:
-  skipDocumentsValidation: true
