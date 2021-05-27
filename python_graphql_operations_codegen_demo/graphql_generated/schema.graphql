@@ -2,7 +2,25 @@ schema {
   query: Query
 }
 
+union Data = FragA | FragB
+
+type FragA {
+  a: Int!
+  added: Int!
+}
+
+type FragB {
+  b: String!
+  addedAlso: Int!
+}
+
 type Query {
   hello: String
   helloName(name: String!): String!
+  testFrag: testFragResult!
+}
+
+type testFragResult {
+  type: String!
+  data: Data!
 }

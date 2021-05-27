@@ -10,3 +10,33 @@ query query_with_optional_parameter($name: String = "UV") {
   helloName(name: $name)
 }
 
+query inline_fragments {
+  testFrag {
+    type
+    data {
+      ...on FragA {
+        a
+      }
+      ...on FragB {
+        b
+      }
+    }
+  }
+}
+
+fragment A on FragA {
+  a
+}
+fragment B on FragB {
+  b
+}
+
+query fragment{
+  testFrag {
+    type
+    data {
+      ...A
+      ...B
+    }
+  }
+}

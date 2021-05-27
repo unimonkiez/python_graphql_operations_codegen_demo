@@ -1,29 +1,78 @@
-var express = require('express');
-var { graphqlHTTP } = require('express-graphql');
-var { buildSchema } = require('graphql');
- 
-// Construct a schema, using GraphQL schema language
-var schema = buildSchema(`
-  type Query {
-    hello: String
-    helloName(name: String!): String!
-  }
-`);
- 
-// The root provides a resolver function for each API endpoint
-var root = {
-  hello: () => {
-    return 'Hello world!';
+const express = require('express');
+const { graphqlHTTP } = require('express-graphql');
+const { makeExecutableSchema } = require('@graphql-tools/schema');
+
+ const typeDefs = `
+ type FragA {
+     a: Int!
+     added: Int!
+ }
+ type FragB {
+     b: String!
+     addedAlso: Int!
+ }
+ union Data = FragA | FragB
+ type testFragResult {
+     type: String!
+     data: Data!
+ }
+
+ type Query {
+   hello: String
+   helloName(name: String!): String!
+   testFrag: testFragResult!
+ }
+`;
+
+const resolvers = {
+  Query: {
+    hello: () => {
+      return 'Hello world!';
+    },
+    helloName: (args) => {
+      return `Hello ${args.name}!`;
+    },
+    testFrag: () => {
+        const isA =  Math.random() < 0.5;
+        if (isA) {
+            return {
+                type: 'a',
+                data: {
+                    a: 5,
+                    added: 1
+                },
+            };
+        }
+        return {
+            type: 'b',
+            data: {
+                b: `I'm b!`,
+                addedAlso: 6
+            },
+        };
+    }, 
   },
-  helloName: (args) => {
-    return `Hello ${args.name}!`;
+  Data: {
+    __resolveType(obj) {
+      if(obj.a){
+        return 'FragA';
+      }
+      if(obj.b){
+        return 'FragB';
+      }
+      return null; // GraphQLError is thrown
+    },
   },
-};
+}
+
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+});
  
 var app = express();
 app.use('/graphql', graphqlHTTP({
   schema: schema,
-  rootValue: root,
   graphiql: true,
 }));
 app.listen(4000);
