@@ -29,7 +29,7 @@ const resolvers = {
     hello: () => {
       return 'Hello world!';
     },
-    helloName: (args) => {
+    helloName: (info, args) => {
       return `Hello ${args.name}!`;
     },
     testFrag: () => {
